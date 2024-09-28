@@ -1,12 +1,10 @@
-#pragma once
 #include <bits/stdc++.h>
 #include "config.h"
-
 using namespace std;
 
 class Cell {
 public:
-    Cell(const Config& config) : u_(config.get_num_of_rk_steps() + 1), u_left_(0.0), u_right_(0.0), cx_(0.0), dx_(0.0) {}
+    Cell(const Config& config): u_(config.get_num_of_rk_steps() + 1), u_left_(0.0), u_right_(0.0), cx_(0.0), dx_(0.0) {}
 
     Cell(const vector<double>& u, double u_left, double u_right, double cx, double dx) : u_(u), u_left_(u_left), u_right_(u_right), cx_(cx), dx_(dx) {}
 
@@ -18,7 +16,7 @@ public:
         dx_ = other.dx_;
     }
 
-    const vector<double>& get_u() const { return u_; }
+    vector<double>& get_u() { return u_; }
     void set_u(const vector<double>& u) { u_ = u; }
 
     double get_u_left() const { return u_left_; }
@@ -32,6 +30,16 @@ public:
 
     double get_dx() const { return dx_; }
     void set_dx(double dx) { dx_ = dx; }
+
+    friend std::ostream& operator<<(std::ostream& os, const Cell& cell) {
+        os << "u: ";
+        for (double value : cell.u_) {
+            os << value << " ";
+        }
+        os << "\nu_left: " << cell.u_left_ << "\nu_right: " << cell.u_right_ << "\n";
+        os << "cx: " << cell.cx_ << "\ndx: " << cell.dx_ << "\n";
+        return os;
+    }
 
 private:
     vector<double> u_;
