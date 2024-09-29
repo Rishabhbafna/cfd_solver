@@ -4,7 +4,7 @@ using namespace std;
 // vector<double> step_boundaries = {-1, -0.25, 0.25, 1};
 class InitializationFunction {
 public:
-    InitializationFunction() : coefficients_list_({{1, 2, 3}, {4, 5}, {6}}), step_boundaries_({-1, -0.25, 0.25, 1}) {}
+    InitializationFunction() : coefficients_list_({{0}, {1}, {0}}), step_boundaries_({-1, -0.25, 0.25, 1}) {}
 
     InitializationFunction(const vector<vector<double>>& coefficients_list, const vector<double>& step_boundaries) : coefficients_list_(coefficients_list), step_boundaries_(step_boundaries) {}
 
