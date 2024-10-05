@@ -1,26 +1,18 @@
 #include<bits/stdc++.h>
 #include "fileWriter.h"
+#include "initializationHandler.h"
 using namespace std;
-
-class InitializationHandler {
-public:
-    void create_grid(Config& config, vector<Cell>& grid);
-    void populate_grid_with_inital_values(Config& config, vector<Cell>& grid);
-    void evaluate_initialization_function(Config& config, vector<Cell>& grid);
-};
 
 class TimeStepCalculator {
 public:
     double calculate_time_step(Config& config, vector<Cell>& grid);
 };
-
 class CellProcessor {
 public:
     void update_ghost_cells(Config& config, vector<Cell>& grid, int rk_step);
     void reconstruct_variables(Config& config, vector<Cell>& grid, int rk_step);
     void update_cell_averages(Config& config, vector<Cell>& grid, int rk_step, double dt);
 };
-
 class FluxCalculator {
 public:
     void calculate_flux(Config& config, vector<Cell>& grid, int rk_step);

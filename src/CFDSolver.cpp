@@ -3,31 +3,6 @@
 
 using namespace std;
 
-void InitializationHandler::create_grid(Config& config, vector<Cell>& grid) {
-    cout<<"Creating grid...1"<<endl;
-    for (int i = 0; i < config.get_grid_size(); ++i) {
-        grid.emplace_back(config); // Use emplace_back to construct objects in place
-    }
-}
-
-void InitializationHandler::populate_grid_with_inital_values(Config& config, vector<Cell>& grid) {
-    double dx = config.get_inital_dx();
-    for (int i=0; i < grid.size(); i++) {
-        grid[i] = Cell(config);
-        grid[i].set_dx(dx);
-        grid[i].set_cx(config.get_min_x() + dx * (i + 0.5 - config.get_num_ghost_cells()));
-    }
-};
-
-void InitializationHandler::evaluate_initialization_function(Config& config, vector<Cell>& grid) {
-    int rk_step = 0;
-    for (auto& cell : grid) {
-        cout<<cell<<endl;
-        auto& u = cell.get_u();
-        u[rk_step] = config.get_initialization_function().evaluate((cell.get_cx()));
-    }
-};
-
 double TimeStepCalculator::calculate_time_step(Config& config, vector<Cell>& grid) {
     //assuming that dx is constant through-out the simulation
     return (grid.front().get_dx() / abs(config.get_advection_velocity())) * config.get_courant_num(); // time = distance/velocity * courant_num
@@ -73,8 +48,8 @@ void FluxCalculator::calculate_flux(Config& config, vector<Cell>& grid, int rk_s
     }
 }
 void CFDSolver::copy_to_nth_rk_step(int n) {
-    for (auto& cell : grid_) {
-        cell.get_u()[n] = cell.get_u()[config_.get_num_of_rk_steps()];
+    for (int i = config_.get_num_ghost_cells(); i < config_.get_num_x_cells() + config_.get_num_ghost_cells(); i++) {
+        grid_[i].get_u()[n] = grid_[i].get_u()[config_.get_num_of_rk_steps()];
     }
 }
 
@@ -123,6 +98,10 @@ void CFDSolver::run() {
         if (last_time_step_) {
             break;
         }
+        if ((time_iter + 1) % 5 == 0) {
+            file_writer_.write_solution_file(grid_, config_, time_);
+        }
+
     }
 
     cout<<"writing final solution file..."<<endl;

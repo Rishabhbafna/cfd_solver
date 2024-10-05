@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 #include "src/CFDSolver.h"
-// build -> g++ main.cpp src/CFDSolver.cpp src/fileWriter.cpp src/cell.cpp src/config.cpp src/initializationFunction.cpp -o main
+// build -> g++ main.cpp src/CFDSolver.cpp src/fileWriter.cpp src/cell.cpp src/config.cpp src/initializationHandler.cpp -o main
 using namespace std;
 
 int main() {

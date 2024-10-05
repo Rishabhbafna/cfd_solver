@@ -1,4 +1,6 @@
 #include<bits/stdc++.h>
+#include "config.h"
+#include "cell.h"
 using namespace std;
 // vector<vector<double>> coefficients_list = {{1, 2, 3}, {4, 5}, {6}};  // Polynomials for different steps
 // vector<double> step_boundaries = {-1, -0.25, 0.25, 1};
@@ -34,4 +36,16 @@ public:
 private:
     vector<vector<double>> coefficients_list_;
     vector<double> step_boundaries_;
+};
+
+class InitializationHandler {
+private:
+    InitializationFunction init_func_;
+public:
+    InitializationHandler() : init_func_() {}
+    InitializationHandler(const vector<vector<double>>& coefficients_list, const vector<double>& step_boundaries) : init_func_(coefficients_list, step_boundaries) {}
+    
+    void create_grid(Config& config, vector<Cell>& grid);
+    void populate_grid_with_inital_values(Config& config, vector<Cell>& grid);
+    void evaluate_initialization_function(Config& config, vector<Cell>& grid);
 };

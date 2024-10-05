@@ -1,14 +1,14 @@
 #include<bits/stdc++.h>
-#include "initializationFunction.h"
 using namespace std;
-
+#ifndef CONFIG_H
+#define CONFIG_H
 class Config {
 public:
-    Config() : num_x_cells_(100), num_ghost_cells_(3), num_of_rk_steps_(1), stopping_time_(0.5), max_time_iterations_(100000), min_x_(-1.0), max_x_(1.0), initialization_function_(), base_path_("out/"), advection_velocity_(1.0), courant_num_(0.8) {
+    Config() : num_x_cells_(100), num_ghost_cells_(3), num_of_rk_steps_(1), stopping_time_(2.0), max_time_iterations_(100000), min_x_(-1.0), max_x_(1.0), base_path_("out/"), advection_velocity_(1.0), courant_num_(0.8) {
         cout<<"config constructor"<<endl;
     }
 
-    Config(int num_x_cells, int num_ghost_cells, int num_of_rk_steps, double stopping_time, int max_time_iterations, double min_x, double max_x, InitializationFunction initialization_function, string base_path, double advection_velocity, double courant_num ) : num_x_cells_(num_x_cells), num_ghost_cells_(num_ghost_cells), num_of_rk_steps_(num_of_rk_steps), stopping_time_(stopping_time), max_time_iterations_(max_time_iterations), min_x_(min_x), max_x_(max_x), initialization_function_(initialization_function), base_path_(base_path), advection_velocity_(advection_velocity), courant_num_(courant_num) {}
+    Config(int num_x_cells, int num_ghost_cells, int num_of_rk_steps, double stopping_time, int max_time_iterations, double min_x, double max_x, string base_path, double advection_velocity, double courant_num ) : num_x_cells_(num_x_cells), num_ghost_cells_(num_ghost_cells), num_of_rk_steps_(num_of_rk_steps), stopping_time_(stopping_time), max_time_iterations_(max_time_iterations), min_x_(min_x), max_x_(max_x), base_path_(base_path), advection_velocity_(advection_velocity), courant_num_(courant_num) {}
 
     Config(const Config& other) {
         num_x_cells_ = other.num_x_cells_;
@@ -18,7 +18,6 @@ public:
         max_time_iterations_ = other.max_time_iterations_;
         min_x_ = other.min_x_;
         max_x_ = other.max_x_;
-        initialization_function_ = other.initialization_function_;
         base_path_ = other.base_path_;
         advection_velocity_ = other.advection_velocity_;
         courant_num_ = other.courant_num_;
@@ -44,9 +43,6 @@ public:
 
     double get_max_x() const { return max_x_; }
     void set_max_x(double max_x) { max_x_ = max_x; }
-
-    InitializationFunction get_initialization_function() const { return initialization_function_; }
-    void set_initialization_function(InitializationFunction initialization_function) { initialization_function_ = initialization_function; }
 
     string get_base_path() const { return base_path_; }
     void set_base_path(string base_path) {
@@ -74,8 +70,8 @@ private:
     int max_time_iterations_;
     double min_x_;
     double max_x_;
-    InitializationFunction initialization_function_;
     string base_path_;
     double advection_velocity_;
     double courant_num_;
 };
+#endif // CONFIG_H

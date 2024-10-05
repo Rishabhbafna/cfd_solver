@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
 #include "config.h"
 using namespace std;
-
+#ifndef CELL_H
+#define CELL_H
 class Cell {
 public:
     Cell(const Config& config): u_(config.get_num_of_rk_steps() + 1), u_left_(0.0), u_right_(0.0), cx_(0.0), dx_(0.0), total_flux_(0.0) {}
@@ -53,3 +54,4 @@ private:
     double dx_;
     double total_flux_;
 };
+#endif // CELL_H
