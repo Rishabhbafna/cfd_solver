@@ -12,7 +12,15 @@ double InitializationFunction::evaluate(double x) const {
     while (step_index < step_boundaries_.size() - 1 && x >= step_boundaries_[step_index]) {
         step_index++;
     }
-
+    if (step_index == trigonometric_step_index_) {
+        auto it = trigonometric_functions_.find(trigonometric_function_name_);
+        if (it != trigonometric_functions_.end()) {
+            return it->second(PI * x);
+        } else {
+            cerr << "Error: Invalid trigonometric function name." << endl;
+            return 0.0;
+        }
+    }
     const vector<double>& coefficients = coefficients_list_[step_index-1];
     double result = 0.0;
     for (int i = 0; i < coefficients.size(); i++) {

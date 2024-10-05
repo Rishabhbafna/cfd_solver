@@ -101,9 +101,7 @@ void CFDSolver::run() {
         if ((time_iter + 1) % 5 == 0) {
             file_writer_.write_solution_file(grid_, config_, time_);
         }
-
     }
-
     cout<<"writing final solution file..."<<endl;
     file_writer_.write_solution_file(grid_, config_, time_);
 
